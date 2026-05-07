@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include <string.h>
 #ifndef MENU_H
 #define MENU_H
 
 void print_help();
-void handle_opcao(const char *opcao);
+void handle_args(int argc, char *argv[]);
 
 #ifdef MENU_IMPLEMENTATION
 void print_help() {
@@ -18,24 +19,26 @@ void print_help() {
          "Criado por Kauan Allyson para a disciplina de Linguagem de "
          "Programação I na UVA\n");
 };
-void handle_opcao(const char *opcao) {
-  switch (opcao[1]) {
-  case '1':
+void handle_args(int argc, char *argv[]) {
+  if (argc != 2) {
+    print_help();
+    return;
+  }
+
+  char *flag = argv[1];
+  if (strcmp(flag, "-1") == 0 || strcmp(flag, "--pt") == 0) {
     printf("Bom dia\n");
-    break;
-  case '2':
+  } else if (strcmp(flag, "-2") == 0 || strcmp(flag, "--en") == 0) {
     printf("Good morning\n");
-    break;
-  case '3':
+  } else if (strcmp(flag, "-3") == 0 || strcmp(flag, "--es") == 0) {
     printf("Buen dia\n");
-    break;
-  case '4':
+  } else if (strcmp(flag, "-4") == 0 || strcmp(flag, "--it") == 0) {
     printf("Buongiorno\n");
-    break;
-  case '5':
+  } else if (strcmp(flag, "-5") == 0 || strcmp(flag, "--fr") == 0) {
     printf("Bonjour\n");
-    break;
-  default:
+  } else if (strcmp(flag, "-h") == 0 || strcmp(flag, "--help") == 0) {
+    print_help();
+  } else {
     print_help();
   }
 }
